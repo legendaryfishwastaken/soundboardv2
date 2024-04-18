@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MP3 Grid Player</title>
+    <style>
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(20, 1fr);
+            gap: 5px;
+        }
+        .grid-item {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <button id="loadButton">Load MP3 Grid</button>
+    <div class="grid" id="gridContainer"></div>
+
+    <script>
+			const mp3Files = [
+					{ url: 'sfx/ben no.mp3', name: 'Ben No' },
+					{ url: 'sfx/ben yes.mp3', name: 'Ben Yes' },
+					{ url: 'sfx/big brain time.mp3', name: 'Big Brain Time' },
+					{ url: 'sfx/boowomp.mp3', name: 'Boowomp' },
+					{ url: 'sfx/bruh.mp3', name: 'Bruh' },
+					{ url: 'sfx/call.mp3', name: 'Call' },
+					{ url: 'sfx/cricket.mp3', name: 'Cricket' },
+					{ url: 'sfx/elevator.mp3', name: 'Elevator' },
+					{ url: 'sfx/error.mp3', name: 'Error' },
+					{ url: 'sfx/gedagedigedagedago.mp3', name: 'Cotton Eye Joe' },
+					{ url: 'sfx/hello there.mp3', name: 'Hello There' },
+					{ url: 'sfx/hi how are ya.mp3', name: 'Hi How Are Ya' },
+					{ url: 'sfx/jeopardy.mp3', name: 'Jeopardy' },
+					{ url: 'sfx/join.mp3', name: 'Join' },
+					{ url: 'sfx/kahoot.mp3', name: 'Kahoot' },
+					{ url: 'sfx/leave.mp3', name: 'Leave' },
+					{ url: 'sfx/mario die.mp3', name: 'Mario Die' },
+					{ url: 'sfx/mc eat.mp3', name: 'MC eat' },
+					{ url: 'sfx/MR BEEEAST.mp3', name: 'MR BEEEAST!' },
+					{ url: 'sfx/my leg.mp3', name: 'MY LEG!' },
+					{ url: 'sfx/notif.mp3', name: 'notif' },
+					{ url: 'sfx/oh nooooo.mp3', name: 'oh noo' },
+					{ url: 'sfx/oof.mp3', name: 'oof' },
+					{ url: 'sfx/rare call.mp3', name: 'rare call' },
+					{ url: 'sfx/rblx eat.mp3', name: 'RBLX eat' },
+					{ url: 'sfx/shut up grandma.mp3', name: 'Shut Up Grandma' },
+					{ url: 'sfx/skibidi dop dop dop.mp3', name: 'Skibidi' },
+					{ url: 'sfx/sponge chase.mp3', name: 'Sponge Chase' },
+					{ url: 'sfx/spongebob fail.mp3', name: 'Sponge Fail' },
+					{ url: 'sfx/sticking out your gyatt for the rizzler.mp3', name: 'Sticking Out Your Gyatt' },
+					{ url: 'sfx/tom scream.mp3', name: 'Tom Scream' },
+					{ url: 'sfx/tutorial.mp3', name: 'Tutorial' },
+					{ url: 'sfx/vine boom.mp3', name: 'Vine Boom' },
+					{ url: 'sfx/we got em.mp3', name: 'We Got Em' },
+					{ url: 'sfx/yayy.mp3', name: 'YAY' }
+					// Add more MP3 file URLs and names here
+			];
+
+        let audioElements = [];
+
+        document.getElementById('loadButton').addEventListener('click', loadGrid);
+
+        function loadGrid() {
+            const gridContainer = document.getElementById('gridContainer');
+            gridContainer.innerHTML = ''; // Clear previous grid
+
+            mp3Files.forEach((mp3, index) => {
+                const audio = new Audio(mp3.url);
+                audioElements.push(audio);
+
+                const gridItem = document.createElement('div');
+                gridItem.className = 'grid-item';
+                gridItem.textContent = mp3.name;
+                gridItem.addEventListener('click', () => playSound(index));
+                
+                gridContainer.appendChild(gridItem);
+            });
+        }
+
+        function playSound(index) {
+            if (index < audioElements.length) {
+                // Stop all other audios before playing
+                audioElements.forEach(audio => audio.pause());
+                
+                audioElements[index].currentTime = 0; // Start from the beginning
+                audioElements[index].play();
+            }
+        }
+    </script>
+</body>
+</html>
